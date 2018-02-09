@@ -24,16 +24,13 @@ class AlphaVantage:
 		try:
 			context = ssl._create_unverified_context()
 			url = ("https://www.alphavantage.co/query?" +
-				"function=TIME_SERIES_INTRADAY&symbol=" + symbol + 
-				"&interval=1min&apikey=" + self.api_key)
+				"function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + symbol + 
+				"&apikey=" + self.api_key)
 			data = req.urlopen(url, context=context).read()
 			data = self.__parse(data)
-			
-			#if there is an error getting the specified stock data
-			if data["Error Message"] != None:
-				return None
+
 			return data
-		except Exception:
+		except Exception as e:
 			print("There was an error getting the data that you requested.")
 			return None
 
