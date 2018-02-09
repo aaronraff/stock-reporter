@@ -22,5 +22,10 @@ print("What stock (symbol) are you looking for?")
 symbol = input()
 
 data = api.getStockData(symbol)
-prices = map(float, makeList(data))
-print(getCurrentPrice(prices))
+
+#alpha_vantage.getStockData returns None if there is an error
+if data != None:
+	prices = map(float, makeList(data))
+	print(getCurrentPrice(prices))
+else:
+	print("There was an error getting the data.")

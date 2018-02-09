@@ -21,13 +21,21 @@ class AlphaVantage:
 		param: symbol - the stock symbol to retrieve
 		return the parsed JSON stock data
 		"""
-		context = ssl._create_unverified_context()
-		url = ("https://www.alphavantage.co/query?" +
-			"function=TIME_SERIES_INTRADAY&symbol=" + symbol + 
-			"&interval=1min&apikey=" + self.api_key)
-		data = req.urlopen(url, context=context).read()
-		data = self.__parse(data)
-		return data
+		try:
+			context = ssl._create_unverified_context()
+			url = ("https://www.alphavantage.co/query?" +
+				"function=TIME_SERIES_INTRADAY&symbol=" + symbol + 
+				"&interval=1min&apikey=" + self.api_key)
+			data = req.urlopen(url, context=context).read()
+			data = self.__parse(data)
+			
+			#if there is an error getting the specified stock data
+			if data["Error Message"] != None:
+				return None
+			return data
+		except Exception:
+			print("There was an error getting the data that you requested.")
+			return None
 
 	def __parse(self, data):
 		"""
