@@ -1,5 +1,6 @@
 import urllib.request as req
 import ssl
+import json
 
 class AlphaVantage:
 	def __init__(self, api_key):
@@ -10,4 +11,9 @@ class AlphaVantage:
 		url = ("https://www.alphavantage.co/query?" +
 			"function=TIME_SERIES_INTRADAY&symbol=" + symbol + 
 			"&interval=1min&apikey=" + self.api_key)
-		print(req.urlopen(url, context=context).read())
+		data = req.urlopen(url, context=context).read()
+		data = self.__parse(data)
+		print(data["Meta Data"])
+
+	def __parse(self, data):
+		return json.loads(data)	
