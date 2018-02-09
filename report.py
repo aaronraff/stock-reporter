@@ -1,5 +1,5 @@
 from config import api_key
-from alphavantage.timeseries import AlphaVantage
+from alphavantage.timeseries import TimeSeries
 
 def getCurrentPrice(data):
 	"""
@@ -17,7 +17,7 @@ def getCurrentPrice(data):
 	return price
 
 #create new instance of AlphaVantage wrapper
-api = AlphaVantage(api_key)
+api = TimeSeries(api_key)
 
 #get the user's input
 print("What stock (symbol) are you looking for?")

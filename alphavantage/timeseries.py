@@ -2,7 +2,7 @@ import urllib.request as req
 import ssl
 import json
 
-class AlphaVantage:
+class TimeSeries:
 	"""
 	Wrapper for https://www.alphavantage.co.
 	"""
