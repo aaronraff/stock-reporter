@@ -1,7 +1,13 @@
 from config import api_key
-from alpha_vantage import AlphaVantage
+from alpha_vantage.timeseries import AlphaVantage
 
-def getCurrentPrice(prices):
+def getCurrentPrice(data):
+	"""
+	Get the current price from the data
+
+	param: data - the json data to get the current price from
+	return: the current price from the data provided
+	"""
 	meta = data["Meta Data"]
 	lastUpdated = meta["3. Last Refreshed"]
 	ts = data["Time Series (Daily)"]
@@ -9,15 +15,6 @@ def getCurrentPrice(prices):
 	date = lastUpdated.split()[0]
 	price = ts[date]["5. adjusted close"]
 	return price
-
-def makeList(data):
-	#need last updated to get the JSON element later
-	meta = data["Meta Data"]
-	interval = meta["4. Interval"]
-	lastUpdated = meta["3. Last Refreshed"]
-	ts = data["Time Series (" + interval + ")"]
-	mr = ts[lastUpdated]
-	return [mr["1. open"], mr["2. high"], mr["3. low"], mr["4. close"]]
 
 #create new instance of AlphaVantage wrapper
 api = AlphaVantage(api_key)
