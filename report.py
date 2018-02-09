@@ -1,5 +1,5 @@
 from config import api_key
-from alpha_vantage.timeseries import AlphaVantage
+from alphavantage.timeseries import AlphaVantage
 
 def getCurrentPrice(data):
 	"""
