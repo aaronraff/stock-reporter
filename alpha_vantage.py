@@ -19,6 +19,7 @@ class AlphaVantage:
 		Get the stock data from the api.
 
 		param: symbol - the stock symbol to retrieve
+		return the parsed JSON stock data
 		"""
 		context = ssl._create_unverified_context()
 		url = ("https://www.alphavantage.co/query?" +
@@ -26,7 +27,7 @@ class AlphaVantage:
 			"&interval=1min&apikey=" + self.api_key)
 		data = req.urlopen(url, context=context).read()
 		data = self.__parse(data)
-		print(data["Meta Data"])
+		return data
 
 	def __parse(self, data):
 		"""
